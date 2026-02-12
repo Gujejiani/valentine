@@ -60,6 +60,7 @@ function App() {
         </div>
       )}
 
+
       {showMain && (
       <div className="hearts-bg" aria-hidden="true">
         <span>♥</span>
