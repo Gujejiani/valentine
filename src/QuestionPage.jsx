@@ -9,7 +9,14 @@ const MAX_PCT = 250;
 const STATIC_LEFT = { x: 25, y: 50 };
 const STATIC_RIGHT = { x: 75, y: 50 };
 
-export default function QuestionPage({ question, runAwayButton, onYes, onNo, onRunawayYesClick, onRunawayNoClick }) {
+const DEFAULT_LEFT = 'კი';
+const DEFAULT_RIGHT = 'არა';
+
+export default function QuestionPage({ pageIndex = 0, question, runAwayButton, leftLabel, rightLabel, advanceOnLeft, onYes, onNo, onRunawayYesClick, onRunawayNoClick }) {
+  const left = leftLabel ?? DEFAULT_LEFT;
+  const right = rightLabel ?? DEFAULT_RIGHT;
+  const leftAdvances = advanceOnLeft ? onNo : onYes;
+  const rightRunawayClick = advanceOnLeft ? onRunawayYesClick : onRunawayNoClick;
   const containerRef = useRef(null);
   const [runawayPos, setRunawayPos] = useState(runAwayButton === 'yes' ? STATIC_LEFT : STATIC_RIGHT);
 
@@ -56,7 +63,7 @@ export default function QuestionPage({ question, runAwayButton, onYes, onNo, onR
   };
 
   return (
-    <div className="question-card">
+    <div className="question-card" style={{ transform: `translateY(${pageIndex % 2 === 1 ? -150 : 0}px)` }}>
       <p className="question-text">{question}</p>
       <div className="buttons-wrap" ref={containerRef}>
         {yesRunaway ? (
@@ -71,7 +78,7 @@ export default function QuestionPage({ question, runAwayButton, onYes, onNo, onR
               }}
               onClick={onRunawayYesClick}
             >
-              კი
+              {left}
             </button>
             <button
               type="button"
@@ -83,7 +90,7 @@ export default function QuestionPage({ question, runAwayButton, onYes, onNo, onR
               }}
               onClick={onNo}
             >
-              არა
+              {right}
             </button>
           </>
         ) : (
@@ -96,9 +103,9 @@ export default function QuestionPage({ question, runAwayButton, onYes, onNo, onR
                 left: `${STATIC_LEFT.x}%`,
                 top: `${STATIC_LEFT.y}%`,
               }}
-              onClick={onYes}
+              onClick={leftAdvances}
             >
-              კი
+              {left}
             </button>
             <button
               type="button"
@@ -108,9 +115,9 @@ export default function QuestionPage({ question, runAwayButton, onYes, onNo, onR
                 left: `${runawayPos.x}%`,
                 top: `${runawayPos.y}%`,
               }}
-              onClick={onRunawayNoClick}
+              onClick={rightRunawayClick}
             >
-              არა
+              {right}
             </button>
           </>
         )}

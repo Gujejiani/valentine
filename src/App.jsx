@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import QuestionPage from './QuestionPage';
+import angryHabsulaImg from './assets/angry_hansula.jpeg';
 
 const QUESTIONS = [
-  { text: 'იქნები ჩემი ბატატუნა?', runAway: 'yes' },
-  { text: 'იქნები ჩემი კნეინა?', runAway: 'yes' },
-  { text: 'იქნები ჩემი დედოფალი?', runAway: 'yes' },
-  { text: 'იქნები ჩემი ვალენტინი?', runAway: 'no' },
+  { text: 'რითი მოგხიბლე', runAway: 'no', leftLabel: 'იდაყვი', rightLabel: 'თვალები' },
+  { text: 'ხარ თუ არა ჩემი ბატატუნა?', runAway: 'yes' },
+  { text: 'ვინ არის ურთიერთობაში ბოსი?', runAway: 'yes', leftLabel: 'მე 😎', rightLabel: 'შენ 👑' },
+  { text: 'ჩვენი პირველი კოცნის ადგილი', runAway: 'yes', leftLabel: 'გემი', rightLabel: 'მანქანა' },
+  { text: 'ხარ თუ არა ჩემი დედოფალი?', runAway: 'yes' },
+  { text: 'ხარ თუ არა ჩემი ვალენტინი?', runAway: 'no' },
 ];
 
 function isMobileDevice() {
@@ -77,8 +80,8 @@ function App() {
         <div className="habsula-overlay" role="alert">
           <div className="habsula-attack">
             <p className="habsula-title">Angry Habsula</p>
-            <img src="/angry_hansula.jpeg" alt="Angry Habsula" className="habsula-face" />
-            <p className="habsula-message">Wrong button! Click No!!</p>
+            <img src={angryHabsulaImg} alt="Angry Habsula" className="habsula-face" />
+            <p className="habsula-message">Wrong button! Damn you!!</p>
             <button type="button" className="habsula-dismiss" onClick={() => setHabsulaAttacking(false)}>
               OK, OK!
             </button>
@@ -133,11 +136,15 @@ function App() {
       ) : showMain ? (
         <QuestionPage
           key={page}
+          pageIndex={page}
           question={QUESTIONS[page].text}
           runAwayButton={QUESTIONS[page].runAway}
+          leftLabel={QUESTIONS[page].leftLabel}
+          rightLabel={QUESTIONS[page].rightLabel}
+          advanceOnLeft={page === 0}
           onYes={onYes}
           onNo={onNo}
-          onRunawayYesClick={QUESTIONS[page].runAway === 'yes' ? onRunawayYesClick : undefined}
+          onRunawayYesClick={QUESTIONS[page].runAway === 'yes' ? onRunawayYesClick : page === 0 ? onRunawayYesClick : undefined}
           onRunawayNoClick={page === QUESTIONS.length - 1 ? onRunawayNoClick : undefined}
         />
       ) : null}
