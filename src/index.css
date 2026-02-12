@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Quicksand:wght@400;500;600&display=swap');
+
+:root {
+  font-family: 'Quicksand', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  color: #2d1a1a;
+  background: linear-gradient(165deg, #fff0f5 0%, #ffe4ec 30%, #ffd6e0 60%, #ffc9d9 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Valentine palette */
+  --valentine-red: #c41e3a;
+  --valentine-rose: #e63972;
+  --valentine-pink: #ff85a2;
+  --valentine-soft: #ffb3c6;
+  --valentine-cream: #fff0f5;
+  --valentine-dark: #8b1538;
+  --valentine-gold: #d4a853;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  border-radius: 999px;
+  border: none;
+  padding: 0.75em 1.5em;
+  font-size: 1.1em;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--valentine-rose);
+  outline-offset: 3px;
+}
+
+/* Floating hearts background */
+.hearts-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hearts-bg span {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.15;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hearts-bg span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+.hearts-bg span:nth-child(2) { left: 80%; top: 15%; animation-delay: 1s; }
+.hearts-bg span:nth-child(3) { left: 25%; top: 70%; animation-delay: 2s; }
+.hearts-bg span:nth-child(4) { left: 70%; top: 75%; animation-delay: 0.5s; }
+.hearts-bg span:nth-child(5) { left: 50%; top: 40%; animation-delay: 1.5s; }
+.hearts-bg span:nth-child(6) { left: 15%; top: 50%; animation-delay: 2.5s; }
+.hearts-bg span:nth-child(7) { left: 85%; top: 45%; animation-delay: 0.8s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.1); }
+}
